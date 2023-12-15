@@ -1,0 +1,24 @@
+# Allow any ts_library rules in this workspace to reference the config
+# Note: if you move the tsconfig.json file to a subdirectory, you can add an alias() here instead
+#   so that ts_library rules still use it by default.
+#   See https://www.npmjs.com/package/@bazel/typescript#installation
+filegroup(
+    name = "node_modules_stuff",
+    srcs = glob([
+        "node_modules/**"
+    ])
+)
+exports_files(
+    [
+        "tsconfig.json"
+    ]
+)
+
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+# Link all packages from the /WORKSPACE npm_translate_lock(name = "npm") and also packages from
+# manual /WORKSPACE npm_import rules to bazel-bin/node_modules as well as the virtual store
+# bazel-bin/node_modules/.aspect_rules_js since /pnpm-lock.yaml is the root of the pnpm workspace
+npm_link_all_packages(
+    name = "node_modules"
+)

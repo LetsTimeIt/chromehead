@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "declaration": false,
+        "declarationMap": false,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "types": [
+            "chrome"
+        ],
+        "lib": ["DOM", "ESNext"],
+        "isolatedModules": false,
+        "jsx": "react-jsx",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "noErrorTruncation": true,
+        "strict": true,
+        "outDir": "dist",
+        "target": "ES6",
+        "rootDirs": [
+            "src"
+        ],
+        "typeRoots": [
+            "./node_modules/@types"
+        ]
+    },
+    "include": ["src/**/*.ts"],
+    // If building without sandboxing, we need to prevent TypeScript from descending into
+    // Bazel's external folder which contains third-party Bazel dependencies.
+    "exclude": ["node_modules/*", "external/*"]
+}

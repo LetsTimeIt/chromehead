@@ -1,0 +1,32 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
+load("@npm//extensions/chrome:webpack-cli/package_json.bzl", "bin")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "lib",
+    srcs = ["package.json"] + glob(["src/**/*.ts", "public/**/*"]),
+    deps = [
+        ":node_modules/@types/firefox-webext-browser",
+        ":node_modules/ts-loader",
+        ":node_modules/copy-webpack-plugin"
+    ],
+    tsconfig = "tsconfig.json",
+    transpiler = "tsc"
+)
+
+bin.webpack_cli(
+    name = "firehead",
+    srcs = [
+        ":lib",
+        ":webpack.config.build.js",
+    ],
+    outs = [
+        "dist/firehead.js",
+    ],
+    args = [
+        "--config webpack.config.build.js",
+    ],
+    chdir = package_name()
+)

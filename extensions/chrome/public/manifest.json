@@ -1,0 +1,22 @@
+{
+    "update_url": "https://clients2.google.com/service/update2/crx",
+    
+        "name": "Chromehead",
+        "version": "2.0.0",
+        "description": "Get wowhead markup from links!",
+        "background": {
+            "service_worker": "chromehead.js"
+        },
+        "permissions": [
+            "management",
+            "contextMenus",
+            "clipboardWrite",
+            "activeTab",
+            "scripting"
+        ],
+        "manifest_version": 3,
+        "icons": {
+            "16": "wowhead.png"
+        }
+    }
+    
